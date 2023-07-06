@@ -90,23 +90,23 @@ j=0;
 
 
 % % Modified Observability 
-% sectorAmpl = 0;
-% 
-% eps = 10;
-% for i = 1:n
-%     P = [p;v]
-%     P(i) = P(i) + eps
-%     
-%     p_normalized = P/norm(P);
-%     cosWrtPrefDir = acos(p_normalized.'*prefDir);
-%     sectorAmpl = sectorAmpl + norm(1.5-cosWrtPrefDir)^2;
-%     
-%     P(i) = P(i) - eps
-%     
-%     p_normalized = P/norm(P);
-%     cosWrtPrefDir = acos(p_normalized.'*prefDir);
-%     sectorAmpl = sectorAmpl + norm(1.5-cosWrtPrefDir)^2;
-% end
+sectorAmpl = 0;
+
+eps = 0.1;
+for i = 1:3
+    P = [p];
+    P(i) = P(i) + eps;
+    
+    p_normalized = P/norm(P);
+    cosWrtPrefDir = acos(p_normalized.'*prefDir);
+    sectorAmpl = sectorAmpl + norm(cosWrtPrefDir)^2;
+    
+    P(i) = P(i) - eps;
+    
+    p_normalized = P/norm(P);
+    cosWrtPrefDir = acos(p_normalized.'*prefDir);
+    sectorAmpl = sectorAmpl + norm(cosWrtPrefDir)^2;
+end
 
 
 

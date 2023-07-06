@@ -77,7 +77,7 @@ function [input, data] = InitData(settings, ic, cost, ref)
             
             Qv = [10 10 10];
             Qd = 1*0.02;
-            Qdir = 1*15;
+            Qdir = 0.1*15;
             %Qj = [0];
             Qu = [1 1 1];
             Q=repmat([Qv, Qd, Qdir, Qu]',1,N);
