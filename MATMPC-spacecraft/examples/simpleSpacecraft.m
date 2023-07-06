@@ -81,9 +81,35 @@ prefDir = params(1:3);
 p_normalized = p/norm(p);
 cosWrtPrefDir = acos(p_normalized.'*prefDir);
 %cosWrtPrefDir = 1/(p_normalized.'*prefDir);
-sectorAmpl = norm(1.5-cosWrtPrefDir)^2;
-j = 0;
-Obs_cost
+% Current version
+%sectorAmpl = norm(1-cosWrtPrefDir)^2;
+sectorAmpl = norm(cosWrtPrefDir)^2;
+
+j=0;
+
+
+
+% % Modified Observability 
+% sectorAmpl = 0;
+% 
+% eps = 10;
+% for i = 1:n
+%     P = [p;v]
+%     P(i) = P(i) + eps
+%     
+%     p_normalized = P/norm(P);
+%     cosWrtPrefDir = acos(p_normalized.'*prefDir);
+%     sectorAmpl = sectorAmpl + norm(1.5-cosWrtPrefDir)^2;
+%     
+%     P(i) = P(i) - eps
+%     
+%     p_normalized = P/norm(P);
+%     cosWrtPrefDir = acos(p_normalized.'*prefDir);
+%     sectorAmpl = sectorAmpl + norm(1.5-cosWrtPrefDir)^2;
+% end
+
+
+
 
 % inner objectives
 h = [
