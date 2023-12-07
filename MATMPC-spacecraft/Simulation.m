@@ -1,4 +1,4 @@
-disp( ' ' );
+ disp( ' ' );
 disp( 'MATMPC -- A (MAT)LAB based Model(M) Predictive(P) Control(C) Package.' );
 disp( 'Copyright (C) 2016-2019 by Yutao Chen, University of Padova' );
 disp( 'All rights reserved.' );
@@ -210,6 +210,6 @@ disp(['Maximum CPT: ', num2str(max(CPT(2:end,:))) ]);
 
 Draw;
 
-%save('state_lqr','state_sim')
-% save('input1','controls_MPC')
-% save('time1','time')
+% save('state_obs','state_sim')
+% save('input_obs','controls_MPC')
+% save('time_obs','time')

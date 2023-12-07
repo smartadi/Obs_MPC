@@ -7,8 +7,9 @@ s2 = load('state_lqr');
 s3 = load('state_2.mat');
 s4 = load('state_3.mat');
 s5 = load('state_base.mat');
-inp  = load('input.mat');
+inp  = load('input_obs.mat');
 t = load('time')';
+s6 = load('state_obs.mat')
 
 controls_MPC = inp.controls_MPC;
 inpod = [1,1,0];
@@ -19,6 +20,8 @@ state_sim2  = s2.state_sim;
 state_sim3  = s3.state_sim;
 state_sim4  = s4.state_sim;
 state_sim5  = s5.state_sim;
+state_sim6  = s6.state_sim;
+
 
 figure()
 set(gca,'fontsize',14)
@@ -59,10 +62,13 @@ xlabel('$t$ [s]','interpreter','latex','fontweight','bold','fontsize',14)
 figure()
 set(gca,'fontsize',14)
 
-plot3(state_sim_base(:,1),state_sim_base(:,2),state_sim_base(:,3),'b','Linewidth',2)
+% plot3(state_sim_base(:,1),state_sim_base(:,2),state_sim_base(:,3),'b','Linewidth',2)
+plot3(state_sim2(:,1),state_sim2(:,2),state_sim2(:,3),'g','Linewidth',2);
 hold on
-plot3(state_sim2(:,1),state_sim2(:,2),state_sim2(:,3),'g','Linewidth',2)
+plot3(state_sim_base(:,1),state_sim_base(:,2),state_sim_base(:,3),'b','Linewidth',2)
+
 plot3(state_sim4(:,1),state_sim4(:,2),state_sim4(:,3),'k','Linewidth',2)
+plot3(state_sim6(:,1),state_sim6(:,2),state_sim6(:,3),'y','Linewidth',2)
 
 
 plot3(10*[0 inpod(1)],10*[0 inpod(2)],10*[0 inpod(3)],'r')
@@ -72,10 +78,11 @@ plot3(state_sim4(1,1),state_sim4(1,2),state_sim4(1,3),'*k','Linewidth',2)
 plot3(state_sim4(end,1),state_sim4(end,2),state_sim4(end,3),'ok','Linewidth',2)
 plot3(state_sim2(1,1),state_sim2(1,2),state_sim2(1,3),'*g','Linewidth',2)
 plot3(state_sim2(end,1),state_sim2(end,2),state_sim2(end,3),'og','Linewidth',2)
-
+plot3(state_sim6(1,1),state_sim6(1,2),state_sim6(1,3),'*y','Linewidth',2)
+plot3(state_sim6(end,1),state_sim6(end,2),state_sim6(end,3),'oy','Linewidth',2)
 [X,Y,Z] = ellipsoid(0,0,0,10,10,10);
 surf(X,Y,Z,'EdgeColor','none','FaceAlpha',0.1,'FaceColor','m')
-
+legend('LQR','MPC1','MPC2','MPC Obs','sun')
 
 
 

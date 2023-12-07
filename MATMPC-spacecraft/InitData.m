@@ -77,11 +77,17 @@ function [input, data] = InitData(settings, ic, cost, ref)
             
             Qv = [10 10 10];
             Qd = 1*0.02;
-            Qdir = 0.1*15;
+            Qdir = 100*10;
+         
+            Qd = 1*1;   
+            Qdir = 1*100;
             %Qj = [0];
             Qu = [1 1 1];
-            Q=repmat([Qv, Qd, Qdir, Qu]',1,N);
+            Q = repmat([Qv, Qd, Qdir, Qu]',1,N);
             QN=[Qv, Qd, Qdir]';
+            
+%             Q = repmat([0*Qv, 0*Qd, Qdir, 0*Qu]',1,N);
+%             QN=[0.1*Qv, 0.1*Qd, Qdir]';
 
             % upper and lower bounds for states (=nbx)
             lb_x = [];

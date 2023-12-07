@@ -43,6 +43,10 @@ auxN     = SX.sym('auxN',nyN,1);    % auxilary variable
 p           =states(1:3);
 v           =states(4:6);
 u           =controls(1:3);
+
+
+
+
 % model parameters
 %mu = 3.816e14; % Gravitational parameter of earth
 mu = 3.986e14; % Gravitational parameter of earth
@@ -83,14 +87,40 @@ cosWrtPrefDir = acos(p_normalized.'*prefDir);
 %cosWrtPrefDir = 1/(p_normalized.'*prefDir);
 % Current version
 %sectorAmpl = norm(1-cosWrtPrefDir)^2;
-sectorAmpl = norm(cosWrtPrefDir)^2;
+
+% This one works right now
+% sectorAmpl = norm(cosWrtPrefDir)^2;
 
 j=0;
 
 
 
-% % Modified Observability 
+% Modified Observability 
 sectorAmpl = 0;
+
+
+% epsilon should evolve as well
+% working version
+% eps = 0.1;
+% for i = 1:3
+%     P = [p];
+%     P(i) = P(i) + eps;
+%     
+%     p_normalized = P/norm(P);
+%     cosWrtPrefDir = acos(p_normalized.'*prefDir);
+%     sectorAmpl = sectorAmpl + norm(cosWrtPrefDir)^2;
+%     
+%     
+%     
+%     
+%     P(i) = P(i) - eps;
+%     
+%     p_normalized = P/norm(P);
+%     cosWrtPrefDir = acos(p_normalized.'*prefDir);
+%     sectorAmpl = sectorAmpl + norm(cosWrtPrefDir)^2;
+% end
+
+
 
 eps = 0.1;
 for i = 1:3
@@ -101,13 +131,17 @@ for i = 1:3
     cosWrtPrefDir = acos(p_normalized.'*prefDir);
     sectorAmpl = sectorAmpl + norm(cosWrtPrefDir)^2;
     
-    P(i) = P(i) - eps;
     
-    p_normalized = P/norm(P);
-    cosWrtPrefDir = acos(p_normalized.'*prefDir);
+    
+    Pp = [p];
+    Pp(i) = Pp(i) - eps;
+    
+    q_normalized = Pp/norm(Pp);
+    cosWrtPrefDir = acos(q_normalized.'*prefDir);
     sectorAmpl = sectorAmpl + norm(cosWrtPrefDir)^2;
 end
 
+% sectorAmpl = 0;
 
 
 
