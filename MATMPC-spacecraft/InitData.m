@@ -38,6 +38,7 @@ function [input, data] = InitData(settings, ic, cost, ref)
             % upper and lower bounds for controls (=nbu)           
             lb_u = -20;
             ub_u = 20;
+            
                        
             % upper and lower bounds for general constraints (=nc)
             lb_g = [];
@@ -45,6 +46,59 @@ function [input, data] = InitData(settings, ic, cost, ref)
             lb_gN = [];
             ub_gN = [];
         
+
+
+        case 'DoubleIntegrator'
+
+            input.x0 = [1;1;1;-0.5;0;0.5];    
+            input.u0 = zeros(nu,1); 
+            input.z0 = zeros(nz,1);
+            para0 = 0;  
+
+            Q=repmat([10 10 10 0.1 0.1 0.01 0.1 0.1 0.1]',1,N);
+            QN=[10 10 10 0.1 0.1 0.1]';
+
+            % upper and lower bounds for states (=nbx)
+            lb_x = [];
+            ub_x = [];
+
+            % upper and lower bounds for controls (=nbu)           
+            lb_u = -10*ones(3,1);
+            ub_u = 10*ones(3,1);
+            
+                       
+            % upper and lower bounds for general constraints (=nc)
+            lb_g = [];
+            ub_g = [];            
+            lb_gN = [];
+            ub_gN = [];
+
+
+        case 'Obs_DoubleIntegrator'
+
+            input.x0 = [1;1;1;-0.5;0;0.5];    
+            input.u0 = zeros(nu,1); 
+            input.z0 = zeros(nz,1);
+            para0 = 0;  
+
+            Q=repmat([10 10 10 0.1 0.1 0.01 0.1 0.1 0.1]',1,N);
+            QN=[10 10 10 0.1 0.1 0.1]';
+
+            % upper and lower bounds for states (=nbx)
+            lb_x = [];
+            ub_x = [];
+
+            % upper and lower bounds for controls (=nbu)           
+            lb_u = -10*ones(3,1);
+            ub_u = 10*ones(3,1);
+            
+                       
+            % upper and lower bounds for general constraints (=nc)
+            lb_g = [];
+            ub_g = [];            
+            lb_gN = [];
+            ub_gN = [];
+            
         case 'spacecraft'
             input.x0 = [1 0 0 1 0 0 0 0 0 0 0 0 0]';    
             input.u0 = zeros(nu,1);%0.1*ones(nu,1);
@@ -69,10 +123,11 @@ function [input, data] = InitData(settings, ic, cost, ref)
             ub_gN = [];
         
         case 'simpleSpacecraft'
-            input.x0 = [-10,-20,10,0,5,0]';    
+            %input.x0 = [-10,-20,10,0,5,0]';
+            input.x0 = [-20,-20,-20,4,5,3]';
             input.u0 = zeros(nu,1);%0.1*ones(nu,1);
             input.z0 = zeros(nz,1);
-            para0 = [1;1;0];  
+            para0 = [1;0;0];  
             para0 = para0./norm(para0);
             
             Qv = [10 10 10];
@@ -81,8 +136,9 @@ function [input, data] = InitData(settings, ic, cost, ref)
          
             Qd = 1*1;   
             Qdir = 1*100;
+ 
             %Qj = [0];
-            Qu = [1 1 1];
+            Qu = 0.1*[1 1 1];
             Q = repmat([Qv, Qd, Qdir, Qu]',1,N);
             QN=[Qv, Qd, Qdir]';
             
@@ -94,8 +150,11 @@ function [input, data] = InitData(settings, ic, cost, ref)
             ub_x = [];
 
             % upper and lower bounds for controls (=nbu)           
-            lb_u = [-1 -1 -1];
-            ub_u = [1 1 1];
+%             lb_u = [-1 -1 -1];
+%             ub_u = [1 1 1];
+            
+            lb_u = 0.5*[-1 -1 -1];
+            ub_u = 0.5*[1 1 1];
                        
             % upper and lower bounds for general constraints (=nc)
             lb_g = [1e-4];
@@ -380,6 +439,14 @@ function [input, data] = InitData(settings, ic, cost, ref)
     switch settings.model
 
         case 'InvertedPendulum'
+
+            data.REF=zeros(1,nx+nu);
+
+        case 'DoubleIntegrator'
+
+            data.REF=zeros(1,nx+nu);
+
+        case 'Obs_DoubleIntegrator'
 
             data.REF=zeros(1,nx+nu);
 

@@ -26,7 +26,32 @@ switch settings.model
         subplot(3,2,[5 6]);
         title('F');
         stairs(time,controls_MPC(:,1));
-    
+
+    case 'DoubleIntegrator'
+        
+        figure(1);
+        subplot(3,1,1)
+        plot(time,state_sim(:,1));hold on;
+        plot(time,state_sim(:,2));
+        plot(time,state_sim(:,3));
+        title('position');
+        subplot(3,1,2)
+        plot(time,state_sim(:,4));hold on;
+        plot(time,state_sim(:,5));
+        plot(time,state_sim(:,6));
+        title('velocity');
+        subplot(3,1,3)
+        plot(time,controls_MPC(:,1));hold on;
+        plot(time,controls_MPC(:,2));
+        plot(time,controls_MPC(:,3));
+   
+        figure(2)
+        plot3(state_sim(:,1),state_sim(:,2),state_sim(:,3));hold on;
+        plot3(state_sim(1,1),state_sim(1,2),state_sim(1,3),'bo');
+        plot3(state_sim(end,1),state_sim(end,2),state_sim(end,3),'go');
+
+
+
     case 'spacecraft'
         
         if( exist('fig_trj','var') && isgraphics(fig_trj,'figure'))

@@ -40,6 +40,57 @@ function [input, data] = InitData_ngrid(settings)
             lb_gN = [];
             ub_gN = [];
 
+        case 'DoubleIntegrator'
+
+            input.x0 = [1;1;1;-0.5;0;0.5];    
+            input.u0 = zeros(nu,1); 
+            input.z0 = zeros(nz,1);
+            para0 = 0;  
+
+            Q=repmat([10 10 10 0.1 0.1 0.01 0.1 0.1 0.1]',1,N);
+            QN=[10 10 10 0.1 0.1 0.1]';
+
+            % upper and lower bounds for states (=nbx)
+            lb_x = [];
+            ub_x = [];
+
+            % upper and lower bounds for controls (=nbu)           
+            lb_u = -10*ones(3,1);
+            ub_u = 10*ones(3,1);
+            
+                       
+            % upper and lower bounds for general constraints (=nc)
+            lb_g = [];
+            ub_g = [];            
+            lb_gN = [];
+            ub_gN = [];
+        
+
+        case 'Obs_DoubleIntegrator'
+
+            input.x0 = [1;1;1;-0.5;0;0.5];    
+            input.u0 = zeros(nu,1); 
+            input.z0 = zeros(nz,1);
+            para0 = 0;  
+
+            Q=repmat([10 10 10 0.1 0.1 0.01 0.1 0.1 0.1]',1,N);
+            QN=[10 10 10 0.1 0.1 0.1]';
+
+            % upper and lower bounds for states (=nbx)
+            lb_x = [];
+            ub_x = [];
+
+            % upper and lower bounds for controls (=nbu)           
+            lb_u = -10*ones(3,1);
+            ub_u = 10*ones(3,1);
+            
+                       
+            % upper and lower bounds for general constraints (=nc)
+            lb_g = [];
+            ub_g = [];            
+            lb_gN = [];
+            ub_gN = [];
+
         case 'ChainofMasses_Lin'
             n=5;
             data.n=n;
@@ -248,6 +299,14 @@ function [input, data] = InitData_ngrid(settings)
     switch settings.model
         
         case 'InvertedPendulum'
+
+            data.REF=zeros(1,nx+nu);
+
+        case 'Doubleintegrator'
+
+            data.REF=zeros(1,nx+nu);
+
+        case 'Obs_Doubleintegrator'
 
             data.REF=zeros(1,nx+nu);
 

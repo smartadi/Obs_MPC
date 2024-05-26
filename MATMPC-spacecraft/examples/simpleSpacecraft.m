@@ -80,13 +80,15 @@ impl_f = xdot - x_dot;
      
 %% Objectives and constraints
 
+
+
 d = p'*p;
 prefDir = params(1:3);
 p_normalized = p/norm(p);
 cosWrtPrefDir = acos(p_normalized.'*prefDir);
 %cosWrtPrefDir = 1/(p_normalized.'*prefDir);
 % Current version
-%sectorAmpl = norm(1-cosWrtPrefDir)^2;
+% sectorAmpl = norm(1-cosWrtPrefDir)^2;
 
 % This one works right now
 % sectorAmpl = norm(cosWrtPrefDir)^2;
@@ -122,7 +124,7 @@ sectorAmpl = 0;
 
 
 
-eps = 0.1;
+eps = 5;
 for i = 1:3
     P = [p];
     P(i) = P(i) + eps;
@@ -162,12 +164,12 @@ obji_GGN = 0.5*(aux-refs)'*(aux-refs);
 objN_GGN = 0.5*(auxN-refN)'*(auxN-refN);
 
 % general inequality path constraints
-general_con = [norm(p)-10];
+general_con = [norm];
 general_con_N = [norm(p)-10];
 
 %% NMPC discretizing time length [s]
 
-Ts_st = 1; % shooting interval time
+Ts_st = 0.1; % shooting interval time
 
 % %% Model Parameters exportation
 % modelParameters = struct(...

@@ -282,6 +282,7 @@ end
 disp('                           ');
 disp('Preparing the NMPC solver...');
 
+
 settings.Ts_st = Ts_st;
 settings.nx = nx; 
 settings.nu = nu;    

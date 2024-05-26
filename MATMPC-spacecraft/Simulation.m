@@ -22,9 +22,13 @@ else
     error('No setting data is detected!');
 end
 
+%%
+
+%%
 Ts = settings.Ts_st;     % Closed-loop sampling time (usually = shooting interval)
 
 Ts_st = settings.Ts_st;  % Shooting interval
+
 nx = settings.nx;    % No. of states
 nu = settings.nu;    % No. of controls
 ny = settings.ny;    % No. of outputs (references)    
@@ -89,7 +93,10 @@ mem = InitMemory(settings, opt, input);
 %% Simulation (start your simulation...)
 
 mem.iter = 1; time = 0.0;
+% Tf = 100;  % simulation time
+
 Tf = 100;  % simulation time
+
 state_sim= input.x0';
 controls_MPC = input.u0';
 y_sim = [];
@@ -210,6 +217,6 @@ disp(['Maximum CPT: ', num2str(max(CPT(2:end,:))) ]);
 
 Draw;
 
-% save('state_obs','state_sim')
-% save('input_obs','controls_MPC')
-% save('time_obs','time')
+% save('state_obs100','state_sim')
+% save('input_obsf','controls_MPC')
+% save('time_obsf','time')
